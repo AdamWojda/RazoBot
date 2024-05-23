@@ -59,15 +59,21 @@ module.exports = {
 
             return content;
         }
-        console.log(`[3] Message received in ${message.channel.name}: ${message.content}`);
 
 
         // Enhanced regular expression to detect any TikTok link
         const tikTokRegex = /https?:\/\/\S*tiktok\.com\/\S*/g;
         const matches = message.content.match(tikTokRegex);
+        // Regular expression to detect "Message received!" or "Message received"
+        const messageReceivedRegex = /\bMessage received!?/gi;
+        const messageReceivedMatches = message.content.match(messageReceivedRegex);
 
-        console.log(`[2] TT ${matches}`); // Log detected TikTok URLs
 
+        // Respond to "Message received!" or "Message received"
+        if (messageReceivedMatches) {
+            message.channel.send(":monkaS: you better delete it")
+                .catch(console.error);
+        }
 
         if (matches) {
             for (const url of matches) {
