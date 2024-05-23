@@ -86,9 +86,9 @@ module.exports = {
                 const quickVidsUrl = await replaceLinks(url);
                 console.log('quickVidsUrl', quickVidsUrl);
                 console.log('url', url);
-
+                const user = message.author;
                 // Send the embed to the same channel
-                message.channel.send(quickVidsUrl)
+                message.channel.send(`${message.author.username} ${quickVidsUrl}`)
                     .catch(console.error);
             }
 
