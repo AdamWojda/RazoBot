@@ -67,11 +67,18 @@ module.exports = {
         // Regular expression to detect "Message received!" or "Message received"
         const messageReceivedRegex = /\bMessage received!?/gi;
         const messageReceivedMatches = message.content.match(messageReceivedRegex);
+        const kiedyStrimRegex = /\bkiedy (strim|stream)|kiedy sie opalasz|o której (strim|stream)\b/gi;
+        const kiedyStrimMatches = message.content.match(kiedyStrimRegex);
 
 
         // Respond to "Message received!" or "Message received"
         if (messageReceivedMatches) {
             message.channel.send("https://tenor.com/view/kirk-shocked-shock-surprised-you-dont-say-gif-12138670")
+                .catch(console.error);
+        }
+        // Respond to "Message received!" or "Message received"
+        if (kiedyStrimMatches) {
+            message.channel.send("https://tenor.com/view/vae-gif-15357506855217945854")
                 .catch(console.error);
         }
 
