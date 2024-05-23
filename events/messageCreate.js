@@ -1,5 +1,4 @@
-const { EmbedBuilder } = require('discord.js');
-
+const SERVICE_URL = process.env.SERVICE_TT;
 module.exports = {
     name: 'messageCreate',
     async execute(message) {
@@ -7,7 +6,7 @@ module.exports = {
 
         async function fetchQuickVidsLink(content) {
             try {
-                const response = await fetch("https://api.quickvids.win/v1/shorturl/create", {
+                const response = await fetch(SERVICE_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ input_text: content }),
