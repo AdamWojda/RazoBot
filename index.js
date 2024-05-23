@@ -49,21 +49,6 @@ for (const file of eventFiles) {
 	}
 }
 
-// TikTok link detection
-client.on('messageCreate', message => {
-	if (message.author.bot) return; // Ignore bot messages
-
-	const tikTokRegex = /https?:\/\/(www\.)?tiktok\.com\/\S+/g;
-	const matches = message.content.match(tikTokRegex);
-
-	if (matches) {
-		matches.forEach(url => {
-			console.log(`TikTok URL found: ${url}`);
-			// You can add additional handling logic here, like storing the URL or performing actions
-		});
-	}
-});
-
 (async () => {
 	const rest = new REST({ version: "10" }).setToken(TOKEN);
 	console.log("Started refreshing application (/) commands.");
