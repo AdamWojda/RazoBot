@@ -71,7 +71,7 @@ module.exports = {
 
         // Respond to "Message received!" or "Message received"
         if (messageReceivedMatches) {
-            message.channel.send(":monkaS: you better delete it")
+            message.channel.send("https://tenor.com/view/kirk-shocked-shock-surprised-you-dont-say-gif-12138670")
                 .catch(console.error);
         }
 
