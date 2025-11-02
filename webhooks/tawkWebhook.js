@@ -32,10 +32,12 @@ async function handleTawkWebhook(req, res, client) {
 
 		if (event === "chat:start") {
 			// New chat started
+			const chatUrl = `https://dashboard.tawk.to/#/chat/${webhookData.property?.id}/${webhookData.chatId}`;
+
 			const embed = new EmbedBuilder()
 				.setColor("#00ff00")
 				.setTitle("🆕 New Chat Started")
-				.setDescription(`A new chat has been initiated`)
+				.setDescription(`A new chat has been initiated\n\n[Open Chat](${chatUrl})`)
 				.addFields(
 					{ name: "Visitor Name", value: webhookData.visitor?.name || "Anonymous", inline: true },
 					{ name: "Visitor Email", value: webhookData.visitor?.email || "Not provided", inline: true },
@@ -53,10 +55,12 @@ async function handleTawkWebhook(req, res, client) {
 
 			// Only forward visitor/guest messages, not agent responses
 			if (senderType === "visitor" || senderType === "guest") {
+				const chatUrl = `https://dashboard.tawk.to/#/chat/${webhookData.property?.id}/${webhookData.chatId}`;
+
 				const embed = new EmbedBuilder()
 					.setColor("#0099ff")
 					.setTitle(`💬 Message from ${senderName}`)
-					.setDescription(message)
+					.setDescription(`${message}\n\n[Open Chat](${chatUrl})`)
 					.addFields(
 						{ name: "Sender", value: senderName, inline: true },
 						{ name: "Chat ID", value: webhookData.chatId || "Unknown", inline: true }
