@@ -16,7 +16,10 @@
   },
   "homepage": "https://github.com/nateloeffel/BaseDiscordBot#readme",
   "dependencies": {
+    "body-parser": "^2.2.0",
     "discord.js": "^14.14.1",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2"
   }
 }

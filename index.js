@@ -3,10 +3,14 @@ const Discord = require("discord.js");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v10");
 const fs = require("fs");
+const express = require("express");
+const bodyParser = require("body-parser");
+const { handleTawkWebhook } = require("./webhooks/tawkWebhook");
 const date = new Date();
 const TOKEN = process.env.TOKEN;
 const CLIENT_ID = process.env.CLIENT_ID;
 const GUILD_ID = process.env.GUILD_ID;
+const PORT = process.env.PORT || 3000;
 const { GatewayIntentBits, Partials } = require("discord.js");
 
 const client = new Discord.Client({
@@ -68,5 +72,32 @@ for (const file of eventFiles) {
 
 	await client.login(TOKEN).then(() => {
 		console.log("Bot Started Successfully.");
+	});
+
+	// Setup Express server for webhooks
+	const app = express();
+
+	// Middleware
+	app.use(bodyParser.json());
+	app.use(bodyParser.urlencoded({ extended: true }));
+
+	// Health check endpoint (useful for Railway)
+	app.get("/", (req, res) => {
+		res.status(200).json({
+			status: "online",
+			bot: client.user?.tag || "Not ready",
+			timestamp: new Date().toISOString()
+		});
+	});
+
+	// Tawk.to webhook endpoint
+	app.post("/webhook/tawk", (req, res) => {
+		handleTawkWebhook(req, res, client);
+	});
+
+	// Start the Express server
+	app.listen(PORT, () => {
+		console.log(`Webhook server listening on port ${PORT}`);
+		console.log(`Tawk.to webhook URL: https://your-app.railway.app/webhook/tawk`);
 	});
 })();
